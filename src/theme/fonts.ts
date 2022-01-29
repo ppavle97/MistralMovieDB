@@ -11,12 +11,4 @@ const size = {
   font20: metrics.screenWidth * (20 / 365),
 };
 
-const weight = {
-  full: "900",
-  semi: "600",
-  low: "400",
-  bold: "bold",
-  normal: "normal",
-};
-
-export { size, weight };
+export { size };
