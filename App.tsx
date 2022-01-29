@@ -1,20 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Details, Movies, TvShow } from "./src/screens";
+
+const Tabs = createBottomTabNavigator();
+const MoviesStack = createStackNavigator();
+const TvShowStack = createStackNavigator();
+
+const MoviesStackScreen = () => (
+  <MoviesStack.Navigator>
+    <MoviesStack.Screen name="Movies" component={Movies} />
+    <MoviesStack.Screen name="Details" component={Details} />
+  </MoviesStack.Navigator>
+);
+
+const TvShowStackScreen = () => (
+  <TvShowStack.Navigator>
+    <TvShowStack.Screen name="TvShow" component={TvShow} />
+    <MoviesStack.Screen name="Details" component={Details} />
+  </TvShowStack.Navigator>
+);
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tabs.Navigator
+        screenOptions={{
+          tabBarLabelPosition: "beside-icon",
+          tabBarLabelStyle: {
+            fontWeight: "700",
+            fontSize: 15,
+          },
+          tabBarIconStyle: { display: "none" },
+          headerShown: false,
+        }}
+      >
+        <Tabs.Screen name="Movies" component={MoviesStackScreen} />
+        <Tabs.Screen name="TvShows" component={TvShowStackScreen} />
+      </Tabs.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
