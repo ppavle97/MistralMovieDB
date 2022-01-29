@@ -184,7 +184,8 @@ export const Movies = (props: any) => {
           rank={index}
           onPress={() =>
             props.navigation.navigate("Details", {
-              name: "Movies Name Details",
+              title: item.title,
+              id: item.id,
             })
           }
         />

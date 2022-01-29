@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Details, Movies, TvShow } from "../screens";
+import { Platform } from "react-native";
 
 const Tabs = createBottomTabNavigator();
 const MoviesStack = createStackNavigator();
@@ -21,12 +22,17 @@ const TvShowStackScreen = () => (
     <MoviesStack.Screen name="Details" component={Details} />
   </TvShowStack.Navigator>
 );
+export type RootStackParamList = {
+  Movies: { title: string; id: string };
+};
 
 export default function Navigation() {
   return (
     <NavigationContainer>
       <Tabs.Navigator
         screenOptions={{
+          tabBarLabelPosition:
+            Platform.OS == "android" ? "beside-icon" : undefined,
           tabBarLabelStyle: {
             fontWeight: "700",
             fontSize: 15,

@@ -1,9 +1,4 @@
-import {
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./Item.styled";
 
 const arrow = require("./assets/arrow.png");
@@ -16,7 +11,7 @@ interface ItemProps {
 }
 
 export default function Item({ data, rank, onPress }: ItemProps) {
-  let { image, title, year, imDbRating } = data;
+  let {image, title, year, imDbRating } = data;
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <>
