@@ -6,12 +6,20 @@ import { Movie } from "./Movie.model";
 import { styles } from "./Movies.styled";
 
 export const Movies = (props: any) => {
-  const { getMovies, movies } = useContext(Context);
+  const { getMovies, movies, setSelectedItem } = useContext(Context);
 
   useEffect(() => {
-    //getMovies();
+    // getMovies();
   }, []);
 
+  const onPress = (item: Movie) => {
+    setSelectedItem(item);
+
+    props.navigation.navigate("Details", {
+      title: item.title,
+      id: item.id,
+    });
+  };
   return (
     <ScrollView style={styles.container}>
       {movies.map((item: Movie, index: number) => (
@@ -19,12 +27,7 @@ export const Movies = (props: any) => {
           key={index}
           data={item}
           rank={index}
-          onPress={() =>
-            props.navigation.navigate("Details", {
-              title: item.title,
-              id: item.id,
-            })
-          }
+          onPress={() => onPress(item)}
         />
       ))}
     </ScrollView>

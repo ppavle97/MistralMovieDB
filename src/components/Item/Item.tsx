@@ -7,11 +7,11 @@ const star = require("./assets/star.png");
 interface ItemProps {
   data: any;
   rank: number;
-  onPress: () => {};
+  onPress: any;
 }
 
 export default function Item({ data, rank, onPress }: ItemProps) {
-  let {image, fullTitle, imDbRating } = data;
+  let { image, fullTitle, imDbRating } = data;
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <>

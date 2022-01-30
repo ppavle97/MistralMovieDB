@@ -10,18 +10,10 @@ const star = require("./assets/star.png");
 type Props = NativeStackScreenProps<RootStackParamList, "Movies">;
 
 export const Details = ({ route, navigation: { setOptions } }: Props) => {
-  const { movies } = useContext(Context);
+  const { selectedItem } = useContext(Context);
   const [showMore, setShowMore] = useState(false);
-  const {
-    title,
-    year,
-    image,
-    imDbRatingCount,
-    imDbRating,
-    description,
-    fullTitle,
-    crew,
-  } = movies[0];
+  const { title, year, image, imDbRatingCount, imDbRating, rank, crew } =
+    selectedItem;
   useEffect(() => {
     setOptions({
       title: route.params.title,
@@ -32,7 +24,7 @@ export const Details = ({ route, navigation: { setOptions } }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.rank}>
-        <Text style={styles.rankValue}>12</Text>
+        <Text style={styles.rankValue}>{rank}</Text>
       </View>
       <View style={styles.main}>
         <View style={styles.mainTop}>

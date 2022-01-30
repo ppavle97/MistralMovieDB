@@ -4,7 +4,8 @@ import Context from "./Context";
 import axios from "axios";
 import { Alert, NativeModules } from "react-native";
 
-import { GET_MOVIES } from "../types";
+import { GET_MOVIES, SET_SELECTED_ITEM } from "../types";
+import { Movie } from "../../screens/Movies/Movie.model";
 
 export const Provider: React.FC = ({ children }) => {
   const initialState = {
@@ -190,6 +191,7 @@ export const Provider: React.FC = ({ children }) => {
         imDbRatingCount: "1230155",
       },
     ],
+    selectedItem: {},
   };
 
   const [state, dispatch] = useReducer(Reducer, initialState);
@@ -202,10 +204,16 @@ export const Provider: React.FC = ({ children }) => {
     console.log("CONTEXT");
     console.log(res.data);
     if (res.status === 200) {
-      dispatch({
-        type: GET_MOVIES,
-        payload: res.data.items,
-      });
+      if (res.data.items.length === 0) {
+        Alert.alert("Maximum request per day reached! ", "", [
+          { text: "OK", onPress: () => NativeModules.DevSettings.reload() },
+        ]);
+      } else {
+        dispatch({
+          type: GET_MOVIES,
+          payload: res.data.items,
+        });
+      }
     } else {
       Alert.alert("Something went wrong!", "", [
         { text: "Reload", onPress: () => NativeModules.DevSettings.reload() },
@@ -213,11 +221,20 @@ export const Provider: React.FC = ({ children }) => {
     }
   };
 
+  const setSelectedItem = (item: Movie) => {
+    dispatch({
+      type: SET_SELECTED_ITEM,
+      payload: item,
+    });
+  };
+
   return (
     <Context.Provider
       value={{
         movies: state.movies,
+        selectedItem: state.selectedItem,
         getMovies,
+        setSelectedItem,
       }}
     >
       {children}
