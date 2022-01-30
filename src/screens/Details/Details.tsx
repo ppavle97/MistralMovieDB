@@ -43,8 +43,8 @@ export const Details = ({ route, navigation: { setOptions } }: Props) => {
           />
           <View style={styles.descriptionContainer}>
             <Text style={styles.descriptionText}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-              ut elit neque.
+              CANNOT FIND DESCRIPTION IN APIs!
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
             </Text>
             <View style={styles.rate}>
               <Image style={styles.icons} source={star} />
