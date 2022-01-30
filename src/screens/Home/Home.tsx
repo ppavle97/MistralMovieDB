@@ -13,8 +13,8 @@ export const Home = (props: any) => {
     useContext(Context);
 
   useEffect(() => {
-    getMovies();
-    getTvShows();
+ /*    getMovies();
+    getTvShows(); */
     setFilter("movies");
   }, []);
 

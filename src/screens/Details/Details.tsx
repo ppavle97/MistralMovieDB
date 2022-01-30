@@ -14,6 +14,7 @@ export const Details = ({ route, navigation: { setOptions } }: Props) => {
   const [showMore, setShowMore] = useState(false);
   const { title, year, image, imDbRatingCount, imDbRating, rank, crew } =
     selectedItem;
+
   useEffect(() => {
     setOptions({
       title: route.params.title,
@@ -21,6 +22,12 @@ export const Details = ({ route, navigation: { setOptions } }: Props) => {
   }, []);
 
   const castArr = crew.split(",");
+
+  const crewRender = (showMore: boolean) => {
+    let indexSecondComma = crew.split(",", 2).join(",").length;
+    return crew.slice(0, !showMore ? indexSecondComma : crew.length);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.rank}>
@@ -53,15 +60,7 @@ export const Details = ({ route, navigation: { setOptions } }: Props) => {
         <View style={styles.castContainer}>
           <Text style={styles.castTitle}>Cast:</Text>
           <View style={styles.castNames}>
-            {castArr.map((item: any, index: any) => {
-              if (!showMore ? index < 2 : index < castArr.length) {
-                return (
-                  <Text key={index}>
-                    {item} {index !== castArr.length && ","}
-                  </Text>
-                );
-              }
-            })}
+            <Text>{crewRender(showMore)}</Text>
           </View>
 
           {castArr.length > 2 && (
@@ -71,7 +70,6 @@ export const Details = ({ route, navigation: { setOptions } }: Props) => {
               </Text>
             </TouchableOpacity>
           )}
-          
         </View>
       </View>
     </View>
