@@ -348,7 +348,7 @@ export const Provider: React.FC = ({ children }) => {
 
   const [state, dispatch] = useReducer(Reducer, initialState);
   const URL = "https://imdb-api.com/API";
-  const KEY = "k_5073fp95";
+  const KEY = "k_yy620c0v";
 
   const getMovies = async () => {
     let res = await axios.get(`${URL}/Top250Movies/${KEY}`);

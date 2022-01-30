@@ -67,7 +67,7 @@ export const Home = (props: any) => {
         })}
         <Button
           title="Show more"
-          onPress={() => setRenderItems(renderItems + 10)}
+          onPress={() => setRenderItems(renderItems + 5)}
         />
       </ScrollView>
     </View>
