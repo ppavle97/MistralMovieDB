@@ -1,18 +1,20 @@
 import { useEffect, useContext } from "react";
-import { FlatList,  View } from "react-native";
+import { FlatList, View } from "react-native";
 import Item from "../../components/Item/Item";
+import SearchBar from "../../components/SearchBar/SearchBar";
 import Context from "../../context/Context/Context";
-import { TvShow } from "./TvShows.model";
-import { styles } from "./TvShows.styled";
+import { ItemModel } from "./Item.model";
+import { styles } from "./Home.styled";
 
-export const TvShows = (props: any) => {
-  const { getTvShows, tvShows, setSelectedItem } = useContext(Context);
+export const Home = (props: any) => {
+  const { getMovies, movies, getTvShows, tvShows, setSelectedItem } =
+    useContext(Context);
 
   useEffect(() => {
-    // getTvShows();
+    //getMovies();
   }, []);
 
-  const onPress = (item: TvShow) => {
+  const onPress = (item: ItemModel) => {
     setSelectedItem(item);
 
     props.navigation.navigate("Details", {
@@ -23,7 +25,7 @@ export const TvShows = (props: any) => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={tvShows}
+        data={movies}
         keyExtractor={(item) => item.id}
         updateCellsBatchingPeriod={300}
         initialNumToRender={10}

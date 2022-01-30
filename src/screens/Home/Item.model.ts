@@ -1,4 +1,4 @@
-export type Movie = {
+export type ItemModel = {
   id: string;
   rank: string;
   title: string;
