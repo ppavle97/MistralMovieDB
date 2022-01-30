@@ -1,8 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-
-import { Details, Home } from "../screens";
+import { Details, Home,  } from "../screens";
 
 const HomeStack = createStackNavigator();
 
@@ -12,6 +11,10 @@ const HomeStackScreen = () => (
     <HomeStack.Screen name="Details" component={Details} />
   </HomeStack.Navigator>
 );
+
+export type RootStackParamList = {
+  Movies: { title: string; id: string };
+};
 
 export default function Navigation() {
   return (

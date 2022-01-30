@@ -56,13 +56,14 @@ export const Details = ({ route, navigation: { setOptions } }: Props) => {
             {castArr.map((item: any, index: any) => {
               if (!showMore ? index < 2 : index < castArr.length) {
                 return (
-                  <Text>
+                  <Text key={index}>
                     {item} {index !== castArr.length && ","}
                   </Text>
                 );
               }
             })}
           </View>
+
           {castArr.length > 2 && (
             <TouchableOpacity onPress={() => setShowMore(!showMore)}>
               <Text style={styles.showMore}>
@@ -70,6 +71,7 @@ export const Details = ({ route, navigation: { setOptions } }: Props) => {
               </Text>
             </TouchableOpacity>
           )}
+          
         </View>
       </View>
     </View>

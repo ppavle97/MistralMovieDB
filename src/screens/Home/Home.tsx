@@ -1,17 +1,21 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { FlatList, View } from "react-native";
 import Item from "../../components/Item/Item";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import Filter from "../../components/Filter/Filter";
 import Context from "../../context/Context/Context";
 import { ItemModel } from "./Item.model";
 import { styles } from "./Home.styled";
 
 export const Home = (props: any) => {
+  const [filter, setFilter] = useState("movies");
   const { getMovies, movies, getTvShows, tvShows, setSelectedItem } =
     useContext(Context);
 
   useEffect(() => {
-    //getMovies();
+    /*  getMovies();
+    getTvShows(); */
+    setFilter("searched");
   }, []);
 
   const onPress = (item: ItemModel) => {
@@ -22,13 +26,31 @@ export const Home = (props: any) => {
       id: item.id,
     });
   };
+
+  const renderData = (expression: string) => {
+    switch (expression) {
+      case "movies":
+        return movies;
+        break;
+      case "tvshows":
+        return tvShows;
+        break;
+      case "searched":
+        return tvShows;
+        break;
+      default:
+        return movies;
+    }
+  };
   return (
     <View style={styles.container}>
+      <SearchBar type={movies} />
+      <Filter active={filter} setActive={setFilter} />
       <FlatList
-        data={movies}
+        data={renderData(filter)}
         keyExtractor={(item) => item.id}
         updateCellsBatchingPeriod={300}
-        initialNumToRender={10}
+        initialNumToRender={5}
         renderItem={({ item, index }) => (
           <Item
             key={index}
