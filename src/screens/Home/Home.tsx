@@ -9,14 +9,18 @@ import { styles } from "./Home.styled";
 
 export const Home = (props: any) => {
   const [filter, setFilter] = useState("movies");
-  const { getMovies, movies, getTvShows, tvShows, setSelectedItem } =
+  const { getMovies, movies, getTvShows, tvShows, setSelectedItem, searched } =
     useContext(Context);
 
   useEffect(() => {
-    /*  getMovies();
-    getTvShows(); */
-    setFilter("searched");
+    getMovies();
+    getTvShows();
+    setFilter("movies");
   }, []);
+
+  useEffect(() => {
+    if (searched.length > 0) setFilter("searched");
+  }, [searched]);
 
   const onPress = (item: ItemModel) => {
     setSelectedItem(item);
@@ -36,7 +40,7 @@ export const Home = (props: any) => {
         return tvShows;
         break;
       case "searched":
-        return tvShows;
+        return searched;
         break;
       default:
         return movies;
@@ -44,8 +48,9 @@ export const Home = (props: any) => {
   };
   return (
     <View style={styles.container}>
-      <SearchBar type={movies} />
+      <SearchBar />
       <Filter active={filter} setActive={setFilter} />
+
       <FlatList
         data={renderData(filter)}
         keyExtractor={(item) => item.id}
@@ -53,6 +58,7 @@ export const Home = (props: any) => {
         initialNumToRender={5}
         renderItem={({ item, index }) => (
           <Item
+            searched={filter === "searched" ? true : false}
             key={index}
             data={item}
             rank={index}

@@ -13,11 +13,9 @@ import { styles } from "./SearchBar.styled";
 
 const close = require("./assets/close.png");
 
-type SearchBarProps = {
-  type: string;
-};
+type SearchBarProps = {};
 
-export default function SearchBar({ type }: SearchBarProps) {
+export default function SearchBar({}: SearchBarProps) {
   const [input, setInput] = useState("");
   const { searchData } = useContext(Context);
 
@@ -27,7 +25,7 @@ export default function SearchBar({ type }: SearchBarProps) {
     setInput(e.nativeEvent.text);
   };
   const onSearch = () => {
-    searchData(input, type);
+    searchData(input);
   };
 
   return (

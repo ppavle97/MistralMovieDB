@@ -4,8 +4,13 @@ import Context from "./Context";
 import axios from "axios";
 import { Alert, NativeModules } from "react-native";
 
-import { GET_MOVIES, SET_SELECTED_ITEM, GET_TV_SHOWS } from "../types";
-import { Movie } from "../../screens/Movies/Movie.model";
+import {
+  GET_MOVIES,
+  SET_SELECTED_ITEM,
+  GET_TV_SHOWS,
+  SET_SEARCHED_DATA,
+} from "../types";
+import { ItemModel } from "../../screens/Home/Item.model";
 
 export const Provider: React.FC = ({ children }) => {
   const initialState = {
@@ -337,6 +342,7 @@ export const Provider: React.FC = ({ children }) => {
         imDbRatingCount: "359162",
       },
     ],
+    searched: [],
     selectedItem: {},
   };
 
@@ -383,15 +389,26 @@ export const Provider: React.FC = ({ children }) => {
     }
   };
 
-  const setSelectedItem = (item: Movie) => {
+  const setSelectedItem = (item: ItemModel) => {
     dispatch({
       type: SET_SELECTED_ITEM,
       payload: item,
     });
   };
 
-  const searchData = (input: string, type: string) => {
-    alert(`Searched data:${input} type:${type}`);
+  const searchData = async (input: string) => {
+    let res = await axios.get(`${URL}/Search/${KEY}/${input}`);
+    console.log(res.data.results);
+    if (res.status === 200) {
+      dispatch({
+        type: SET_SEARCHED_DATA,
+        payload: res.data.results,
+      });
+    } else {
+      Alert.alert("Something went wrong!", "", [
+        { text: "Reload", onPress: () => NativeModules.DevSettings.reload() },
+      ]);
+    }
   };
 
   return (
@@ -399,6 +416,7 @@ export const Provider: React.FC = ({ children }) => {
       value={{
         movies: state.movies,
         selectedItem: state.selectedItem,
+        searched: state.searched,
         tvShows: state.tvShows,
         getMovies,
         setSelectedItem,
