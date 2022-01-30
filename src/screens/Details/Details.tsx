@@ -63,11 +63,13 @@ export const Details = ({ route, navigation: { setOptions } }: Props) => {
               }
             })}
           </View>
-          <TouchableOpacity onPress={() => setShowMore(!showMore)}>
-            <Text style={styles.showMore}>
-              {showMore ? "Show less" : "Show more"}
-            </Text>
-          </TouchableOpacity>
+          {castArr.length > 2 && (
+            <TouchableOpacity onPress={() => setShowMore(!showMore)}>
+              <Text style={styles.showMore}>
+                {showMore ? "Show less" : "Show more"}
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </View>
