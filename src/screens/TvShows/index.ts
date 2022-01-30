@@ -1,1 +1,1 @@
-export * from "./TvShows"
+export * from "./TvShows";

@@ -1,3 +1,3 @@
 export * from "./Details";
 export * from "./Movies";
-export * from "./TvShow";
+export * from "./TvShows";

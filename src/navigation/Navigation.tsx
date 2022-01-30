@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Details, Movies, TvShow } from "../screens";
+import { Details, Movies, TvShows } from "../screens";
 import { Platform } from "react-native";
 
 const Tabs = createBottomTabNavigator();
@@ -18,7 +18,7 @@ const MoviesStackScreen = () => (
 
 const TvShowStackScreen = () => (
   <TvShowStack.Navigator>
-    <TvShowStack.Screen name="TvShow" component={TvShow} />
+    <TvShowStack.Screen name="TvShow" component={TvShows} />
     <MoviesStack.Screen name="Details" component={Details} />
   </TvShowStack.Navigator>
 );

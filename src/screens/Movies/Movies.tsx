@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { ScrollView, Text } from "react-native";
+import { FlatList, ScrollView, Text, View } from "react-native";
 import Item from "../../components/Item/Item";
 import Context from "../../context/Context/Context";
 import { Movie } from "./Movie.model";
@@ -9,7 +9,7 @@ export const Movies = (props: any) => {
   const { getMovies, movies, setSelectedItem } = useContext(Context);
 
   useEffect(() => {
-    // getMovies();
+    //getMovies();
   }, []);
 
   const onPress = (item: Movie) => {
@@ -21,15 +21,21 @@ export const Movies = (props: any) => {
     });
   };
   return (
-    <ScrollView style={styles.container}>
-      {movies.map((item: Movie, index: number) => (
-        <Item
-          key={index}
-          data={item}
-          rank={index}
-          onPress={() => onPress(item)}
-        />
-      ))}
-    </ScrollView>
+    <View style={styles.container}>
+      <FlatList
+        data={movies}
+        keyExtractor={(item) => item.id}
+        updateCellsBatchingPeriod={300}
+        initialNumToRender={10}
+        renderItem={({ item, index }) => (
+          <Item
+            key={index}
+            data={item}
+            rank={index}
+            onPress={() => onPress(item)}
+          />
+        )}
+      />
+    </View>
   );
 };

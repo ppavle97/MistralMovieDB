@@ -1,14 +1,16 @@
 import { useEffect, useState, useContext } from "react";
-import { ScrollView, Text } from "react-native";
+import { FlatList, ScrollView, Text, View } from "react-native";
 import Item from "../../components/Item/Item";
 import Context from "../../context/Context/Context";
 import { TvShow } from "./TvShows.model";
 import { styles } from "./TvShows.styled";
 
 export const TvShows = (props: any) => {
-  const { tvShows, setSelectedItem } = useContext(Context);
+  const { getTvShows, tvShows, setSelectedItem } = useContext(Context);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    // getTvShows();
+  }, []);
 
   const onPress = (item: TvShow) => {
     setSelectedItem(item);
@@ -19,15 +21,21 @@ export const TvShows = (props: any) => {
     });
   };
   return (
-    <ScrollView style={styles.container}>
-      {tvShows.map((item: TvShow, index: number) => (
-        <Item
-          key={index}
-          data={item}
-          rank={index}
-          onPress={() => onPress(item)}
-        />
-      ))}
-    </ScrollView>
+    <View style={styles.container}>
+      <FlatList
+        data={tvShows}
+        keyExtractor={(item) => item.id}
+        updateCellsBatchingPeriod={300}
+        initialNumToRender={10}
+        renderItem={({ item, index }) => (
+          <Item
+            key={index}
+            data={item}
+            rank={index}
+            onPress={() => onPress(item)}
+          />
+        )}
+      />
+    </View>
   );
 };

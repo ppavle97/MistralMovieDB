@@ -4,7 +4,7 @@ import Context from "./Context";
 import axios from "axios";
 import { Alert, NativeModules } from "react-native";
 
-import { GET_MOVIES, SET_SELECTED_ITEM } from "../types";
+import { GET_MOVIES, SET_SELECTED_ITEM, GET_TV_SHOWS } from "../types";
 import { Movie } from "../../screens/Movies/Movie.model";
 
 export const Provider: React.FC = ({ children }) => {
@@ -345,10 +345,7 @@ export const Provider: React.FC = ({ children }) => {
   const KEY = "k_5073fp95";
 
   const getMovies = async () => {
-    // STUCK WITH LIMIT ERROR
     let res = await axios.get(`${URL}/Top250Movies/${KEY}`);
-    console.log("CONTEXT");
-    console.log(res.data);
     if (res.status === 200) {
       if (res.data.items.length === 0) {
         Alert.alert("Maximum request per day reached! ", "", [
@@ -357,6 +354,25 @@ export const Provider: React.FC = ({ children }) => {
       } else {
         dispatch({
           type: GET_MOVIES,
+          payload: res.data.items,
+        });
+      }
+    } else {
+      Alert.alert("Something went wrong!", "", [
+        { text: "Reload", onPress: () => NativeModules.DevSettings.reload() },
+      ]);
+    }
+  };
+  const getTvShows = async () => {
+    let res = await axios.get(`${URL}/Top250TVs/${KEY}`);
+    if (res.status === 200) {
+      if (res.data.items.length === 0) {
+        Alert.alert("Maximum request per day reached! ", "", [
+          { text: "OK", onPress: () => NativeModules.DevSettings.reload() },
+        ]);
+      } else {
+        dispatch({
+          type: GET_TV_SHOWS,
           payload: res.data.items,
         });
       }
@@ -382,6 +398,7 @@ export const Provider: React.FC = ({ children }) => {
         tvShows: state.tvShows,
         getMovies,
         setSelectedItem,
+        getTvShows,
       }}
     >
       {children}
