@@ -1,5 +1,5 @@
 import { useEffect, useContext, useState } from "react";
-import { FlatList, View } from "react-native";
+import { Button, FlatList, ScrollView, View } from "react-native";
 import Item from "../../components/Item/Item";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import Filter from "../../components/Filter/Filter";
@@ -9,11 +9,12 @@ import { styles } from "./Home.styled";
 
 export const Home = (props: any) => {
   const [filter, setFilter] = useState("movies");
+  const [renderItems, setRenderItems] = useState(4);
   const { getMovies, movies, getTvShows, tvShows, setSelectedItem, searched } =
     useContext(Context);
 
   useEffect(() => {
- /*    getMovies();
+    /*    getMovies();
     getTvShows(); */
     setFilter("movies");
   }, []);
@@ -51,21 +52,24 @@ export const Home = (props: any) => {
       <SearchBar />
       <Filter active={filter} setActive={setFilter} />
 
-      <FlatList
-        data={renderData(filter)}
-        keyExtractor={(item) => item.id}
-        updateCellsBatchingPeriod={300}
-        initialNumToRender={5}
-        renderItem={({ item, index }) => (
-          <Item
-            searched={filter === "searched" ? true : false}
-            key={index}
-            data={item}
-            rank={index}
-            onPress={() => onPress(item)}
-          />
-        )}
-      />
+      <ScrollView style={styles.scrollContainer}>
+        {renderData(filter).map((item: any, index: number) => {
+          if (index < renderItems)
+            return (
+              <Item
+                searched={filter === "searched" ? true : false}
+                key={index}
+                data={item}
+                rank={index}
+                onPress={() => onPress(item)}
+              />
+            );
+        })}
+        <Button
+          title="Show more"
+          onPress={() => setRenderItems(renderItems + 10)}
+        />
+      </ScrollView>
     </View>
   );
 };
