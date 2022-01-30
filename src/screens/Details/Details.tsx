@@ -1,4 +1,4 @@
-import { View, Text, Image, Button, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../navigation";
 import { useEffect, useContext, useState } from "react";

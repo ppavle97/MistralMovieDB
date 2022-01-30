@@ -1,5 +1,5 @@
-import { useEffect, useState, useContext } from "react";
-import { FlatList, ScrollView, Text, View } from "react-native";
+import { useEffect, useContext } from "react";
+import { FlatList, View } from "react-native";
 import Item from "../../components/Item/Item";
 import Context from "../../context/Context/Context";
 import { Movie } from "./Movie.model";
