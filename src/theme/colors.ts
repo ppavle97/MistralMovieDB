@@ -5,4 +5,5 @@ export const colors = {
   darkSilver: "#6D6D6D",
   silver: "#E6E6E6",
   white: "#fff",
+  blue: "#0000FF",
 };

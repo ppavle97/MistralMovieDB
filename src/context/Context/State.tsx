@@ -390,6 +390,10 @@ export const Provider: React.FC = ({ children }) => {
     });
   };
 
+  const searchData = (input: string, type: string) => {
+    alert(`Searched data:${input} type:${type}`);
+  };
+
   return (
     <Context.Provider
       value={{
@@ -399,6 +403,7 @@ export const Provider: React.FC = ({ children }) => {
         getMovies,
         setSelectedItem,
         getTvShows,
+        searchData,
       }}
     >
       {children}

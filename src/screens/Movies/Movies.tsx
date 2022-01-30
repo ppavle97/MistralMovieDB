@@ -1,6 +1,7 @@
 import { useEffect, useContext } from "react";
 import { FlatList, View } from "react-native";
 import Item from "../../components/Item/Item";
+import SearchBar from "../../components/SearchBar/SearchBar";
 import Context from "../../context/Context/Context";
 import { Movie } from "./Movie.model";
 import { styles } from "./Movies.styled";
@@ -22,6 +23,7 @@ export const Movies = (props: any) => {
   };
   return (
     <View style={styles.container}>
+      <SearchBar type="Movies" />
       <FlatList
         data={movies}
         keyExtractor={(item) => item.id}
