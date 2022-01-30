@@ -11,7 +11,7 @@ interface ItemProps {
 }
 
 export default function Item({ data, rank, onPress }: ItemProps) {
-  let {image, title, year, imDbRating } = data;
+  let {image, fullTitle, imDbRating } = data;
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <>
@@ -23,7 +23,7 @@ export default function Item({ data, rank, onPress }: ItemProps) {
         />
         <View style={styles.info}>
           <Text style={styles.title}>
-            {rank + 1}. {title}({year})
+            {rank + 1}. {fullTitle}
           </Text>
           <View style={styles.rank}>
             <Image style={styles.icons} source={star} />
