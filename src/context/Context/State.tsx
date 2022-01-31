@@ -354,9 +354,7 @@ export const Provider: React.FC = ({ children }) => {
     let res = await axios.get(`${URL}/Top250Movies/${KEY}`);
     if (res.status === 200) {
       if (res.data.items.length === 0) {
-        Alert.alert("Maximum request per day reached! ", "", [
-          { text: "OK", onPress: () => NativeModules.DevSettings.reload() },
-        ]);
+        Alert.alert("Maximum request per day reached! ", "", [{ text: "OK" }]);
       } else {
         dispatch({
           type: GET_MOVIES,
@@ -373,9 +371,7 @@ export const Provider: React.FC = ({ children }) => {
     let res = await axios.get(`${URL}/Top250TVs/${KEY}`);
     if (res.status === 200) {
       if (res.data.items.length === 0) {
-        Alert.alert("Maximum request per day reached! ", "", [
-          { text: "OK", onPress: () => NativeModules.DevSettings.reload() },
-        ]);
+        Alert.alert("Maximum request per day reached! ", "", [{ text: "OK" }]);
       } else {
         dispatch({
           type: GET_TV_SHOWS,

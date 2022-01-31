@@ -4,7 +4,7 @@ import Navigation from "./src/navigation/Navigation";
 import { LogBox } from "react-native";
 
 // Pavle Pavlovic
-// react-native-gesture-handler send error if any of packages use older version. 
+// react-native-gesture-handler send error if any of packages use older version.
 // My current version is latest
 LogBox.ignoreLogs([
   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
@@ -13,7 +13,7 @@ LogBox.ignoreLogs([
 export default function App() {
   return (
     <Provider>
-      <Navigation />
+       <Navigation /> 
     </Provider>
   );
 }
